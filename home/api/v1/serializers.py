@@ -79,7 +79,6 @@ class PasswordSerializer(PasswordResetSerializer):
 class ApplicationsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Applications
-        # fields = ['id', 'description', 'name']
 
 class SubscriptionsSerializer(serializers.ModelSerializer):
     class Meta:
