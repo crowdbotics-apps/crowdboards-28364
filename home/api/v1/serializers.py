@@ -1,3 +1,4 @@
+from home.models import Applications, Plans, Subscriptions
 from django.contrib.auth import get_user_model
 from django.http import HttpRequest
 from django.utils.translation import ugettext_lazy as _
@@ -38,10 +39,9 @@ class SignupSerializer(serializers.ModelSerializer):
 
     def validate_email(self, email):
         email = get_adapter().clean_email(email)
-        if allauth_settings.UNIQUE_EMAIL:
-            if email and email_address_exists(email):
-                raise serializers.ValidationError(
-                    _("A user is already registered with this e-mail address."))
+        if allauth_settings.UNIQUE_EMAIL and email and email_address_exists(email):
+            raise serializers.ValidationError(
+                _("A user is already registered with this e-mail address."))
         return email
 
     def create(self, validated_data):
@@ -74,3 +74,18 @@ class UserSerializer(serializers.ModelSerializer):
 class PasswordSerializer(PasswordResetSerializer):
     """Custom serializer for rest_auth to solve reset password error"""
     password_reset_form_class = ResetPasswordForm
+
+
+class ApplicationsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Applications
+        # fields = ['id', 'description', 'name']
+
+class SubscriptionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscriptions
+
+class PlansSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plans
+
