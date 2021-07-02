@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+settings.configure()
 
 class Applications(models.Model):
     name = models.CharField(max_length=50)
