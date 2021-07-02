@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-settings.configure()
+# settings.configure()
 
 class Applications(models.Model):
     name = models.CharField(max_length=50)
@@ -10,7 +10,7 @@ class Applications(models.Model):
     framework = models.CharField(max_length=30)
     domain_name	= models.CharField(max_length=50)
     screenshot= models.CharField(max_length=30)
-    subscription= models.CharField(max_length=30)
+    subscription= models.ForeignKey('subscriptions', on_delete=models.CASCADE)
     user =  models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
