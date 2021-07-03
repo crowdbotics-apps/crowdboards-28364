@@ -46,9 +46,9 @@ class ApplicationsViewSet(ModelViewSet):
 
     def retrieve(self, request, pk=None):
         queryset = Applications.objects.all()
-        user = get_object_or_404(queryset, pk=pk)
+        apps = get_object_or_404(queryset, pk=pk)
         # TODO: change serializers of new code
-        serializer = ApplicationsSerializer(user)
+        serializer = ApplicationsSerializer(apps)
         return Response(serializer.data)
 
 class SubscriptionsViewSet(ModelViewSet):
@@ -62,8 +62,8 @@ class SubscriptionsViewSet(ModelViewSet):
 
     def retrieve(self, request, pk=None):
         queryset = Subscriptions.objects.all()
-        user = get_object_or_404(queryset, pk=pk)
-        serializer = SubscriptionsSerializer(user)
+        subscriptions = get_object_or_404(queryset, pk=pk)
+        serializer = SubscriptionsSerializer(subscriptions)
         return Response(serializer.data)
 
 class PlansViewSet(ReadOnlyModelViewSet):

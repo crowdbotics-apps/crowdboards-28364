@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+
 import os
 import environ
 import logging
@@ -228,8 +229,9 @@ SWAGGER_SETTINGS = {
     "DEFAULT_INFO": f"{ROOT_URLCONF}.api_info",
 }
 
-if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
-    # output email to console instead of sending
-    if not DEBUG:
-        logging.warning("You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails.")
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+elif not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
+    logging.warning("You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails.")
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
